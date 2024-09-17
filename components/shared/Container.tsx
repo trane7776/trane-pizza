@@ -13,4 +13,4 @@ const Container: FC<React.PropsWithChildren<ContainerProps>> = ({
   );
 };
 
-export default Container;
+export { Container };
