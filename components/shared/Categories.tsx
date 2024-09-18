@@ -37,5 +37,3 @@ export const Categories: FC<CategoriesProps> = ({ className }) => {
     </div>
   );
 };
-
-export default Categories;
