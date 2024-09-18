@@ -25,7 +25,7 @@ const Header: FC<HeaderProps> = ({ className }) => {
         <div className="flex items-center gap-3">
           <Button variant="outline" className="flex items-center gap-1">
             <User size={16} />
-            Войти
+            войти
           </Button>
           <div>
             <Button className="group relative">
