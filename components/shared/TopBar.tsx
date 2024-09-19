@@ -23,5 +23,3 @@ export const TopBar: FC<Props> = ({ className }) => {
     </div>
   );
 };
-
-export default TopBar;

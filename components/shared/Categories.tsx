@@ -6,14 +6,14 @@ interface CategoriesProps {
 }
 
 const categories = [
-  'Пиццы',
-  'Комбо',
-  'Закуски',
-  'Коктейли',
-  'Кофе',
-  'Напитки',
-  'Десерты',
-  'Соусы',
+  'пиццы',
+  'комбо',
+  'закуски',
+  'коктейли',
+  'кофе',
+  'напитки',
+  'десерты',
+  'соусы',
 ];
 const activeIndex = 0;
 export const Categories: FC<CategoriesProps> = ({ className }) => {
