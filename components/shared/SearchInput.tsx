@@ -24,12 +24,22 @@ export const SearchInput: React.FC<Props> = ({ className }) => {
   });
 
   useDebounce(
-    () => {
-      API.products.search(searchQuery).then((items) => setProducts(items));
+    async () => {
+      try {
+        const response = await API.products.search(searchQuery);
+        setProducts(response);
+      } catch (error) {
+        console.error(error);
+      }
     },
     250,
     [searchQuery]
   );
+
+  const onClickItem = () => {
+    setFocused(false);
+    setSearchQuery('');
+  };
 
   return (
     <>
@@ -60,11 +70,17 @@ export const SearchInput: React.FC<Props> = ({ className }) => {
               focused && 'visible opacity-100 top-12'
             )}
           >
+            <div>
+              <span className="text-sm text-gray-500 px-3">
+                Результаты поиска
+              </span>
+            </div>
             {products.map((product, index) => (
               <Link
                 key={index}
                 className="flex items-center gap-3 px-3 py-2 hover:bg-primary/10"
-                href={`/products/${product.id}`}
+                href={`/product/${product.id}`}
+                onClick={onClickItem}
               >
                 <img
                   className="rounded-sm h-8 w-8"

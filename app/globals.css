@@ -71,7 +71,12 @@ html {
     text-wrap: balance;
   }
 }
-
+@media (prefers-color-scheme: dark) {
+  body {
+    background-color: #fff !important;
+    color: #000 !important;
+  }
+}
 @layer base {
   * {
     @apply border-border;
