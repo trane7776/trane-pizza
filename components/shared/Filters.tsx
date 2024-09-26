@@ -1,5 +1,5 @@
 'use client';
-import { FC } from 'react';
+import React from 'react';
 import { Title } from './Title';
 import { FilterCheckbox } from './FilterCheckbox';
 import { Input } from '../ui';
@@ -10,21 +10,38 @@ interface Props {
   className?: string;
 }
 
-export const Filters: FC<Props> = ({ className }) => {
-  const { ingredients, loading } = useFilterIngredients();
+interface PriceProps {
+  priceFrom: number;
+  priceTo: number;
+}
+
+export const Filters: React.FC<Props> = ({ className }) => {
+  const { ingredients, loading, onAddId, selectedIds } = useFilterIngredients();
+  const [prices, setPrice] = React.useState<PriceProps>({
+    priceFrom: 0,
+    priceTo: 5000,
+  });
 
   const items = ingredients.map((item) => ({
     value: String(item.id),
     text: item.name,
   }));
+
+  const updatePrice = (key: keyof PriceProps, value: number) => {
+    setPrice({
+      ...prices,
+      [key]: value,
+    });
+  };
+
   return (
     <div className={className}>
       <Title text="фильтрация" size="sm" className="mb-5 font-bold" />
 
       {/* Верхние чекбоксы */}
       <div className="flex flex-col gap-4">
-        <FilterCheckbox text="можно купить в ресторане" value="1" />
-        <FilterCheckbox text="новинки" value="2" />
+        <FilterCheckbox name="qwe" text="можно купить в ресторане" value="1" />
+        <FilterCheckbox name="rty" text="новинки" value="2" />
       </div>
       {/* Фильтр цен */}
       <div className="mt-5 border-y border-y-neutral-100 py-6 pb-7">
@@ -34,12 +51,28 @@ export const Filters: FC<Props> = ({ className }) => {
             type="number"
             placeholder="0"
             min={0}
-            max={30000}
-            defaultValue={0}
+            max={1000}
+            value={String(prices.priceFrom)}
+            onChange={(e) => updatePrice('priceFrom', Number(e.target.value))}
           />
-          <Input type="number" min={100} max={30000} placeholder="30000" />
+          <Input
+            type="number"
+            min={100}
+            max={1000}
+            placeholder="30000"
+            value={String(prices.priceTo)}
+            onChange={(e) => updatePrice('priceTo', Number(e.target.value))}
+          />
         </div>
-        <RangeSlider min={0} max={5000} step={10} value={[0, 5000]} />
+        <RangeSlider
+          min={0}
+          max={1000}
+          step={10}
+          value={[prices.priceFrom, prices.priceTo]}
+          onValueChange={([from, to]) =>
+            setPrice({ priceFrom: from, priceTo: to })
+          }
+        />
       </div>
       <CheckboxFiltersGroup
         title="ингредиенты"
@@ -48,6 +81,9 @@ export const Filters: FC<Props> = ({ className }) => {
         defaultItems={items.slice(0, 6)}
         items={items}
         loading={loading}
+        onClickCheckbox={(id) => onAddId(id)}
+        selectedIds={selectedIds}
+        name="ingredients"
       />
     </div>
   );
