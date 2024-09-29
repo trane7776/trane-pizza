@@ -13,6 +13,12 @@ html {
 }
 
 @layer base {
+  img {
+    @apply max-w-full h-auto object-cover;
+  }
+}
+
+@layer base {
   :root {
     --foreground: 20 14.3% 4.1%;
 

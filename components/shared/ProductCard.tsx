@@ -3,7 +3,7 @@ import React from 'react';
 import { Title } from './Title';
 import { Button } from '../ui';
 import { Plus } from 'lucide-react';
-
+import { useRouter } from 'next/navigation';
 interface Props {
   id: number;
   name: string;
@@ -21,7 +21,7 @@ export const ProductCard: React.FC<Props> = ({
 }) => {
   return (
     <div className={className}>
-      <Link href={`/product/${id}`}>
+      <Link href={`/product/${id}`} scroll={true}>
         <div className="flex justify-center p-6 bg-secondary rounded-lg h-[260px]">
           <img
             className="w-[215px] h-[215px] object-cover"
