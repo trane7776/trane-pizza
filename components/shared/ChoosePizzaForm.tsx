@@ -11,6 +11,7 @@ import {
   pizzaTypes,
 } from '@/constants/pizza';
 import { useSet } from 'react-use';
+import { calcPizzaPrices, getAvailablePizzaSizes } from '@/lib';
 
 interface Props {
   imageUrl: string;
@@ -31,21 +32,17 @@ export const ChoosePizzaForm: React.FC<Props> = ({
 }) => {
   const [size, setSize] = React.useState<PizzaSize>(20);
   const [type, setType] = React.useState<PizzaType>(1);
-
   const [selectedIngredients, { toggle: addIngredient }] = useSet(
     new Set<number>([])
   );
 
-  const pizzaPrice =
-    items.find((item) => item.pizzaType === type && item.size === size)
-      ?.price || 0;
-
-  const totalIngredientsPrice =
-    ingredients
-      ?.filter((ingredient) => selectedIngredients.has(ingredient.id))
-      .reduce((acc, ingredient) => acc + ingredient.price, 0) || 0;
-
-  const totalPrice = pizzaPrice + totalIngredientsPrice;
+  const totalPrice = calcPizzaPrices(
+    type,
+    size,
+    items,
+    ingredients || [],
+    selectedIngredients
+  );
 
   const textDetails = `${size} см, ${mapPizzaType[type]} тесто`;
 
@@ -58,14 +55,8 @@ export const ChoosePizzaForm: React.FC<Props> = ({
     });
   };
 
-  const availablePizzas = items.filter((item) => item.pizzaType === type);
-  const availablePizzaSizes = pizzaSizes.map((item) => ({
-    name: item.name,
-    value: item.value,
-    disabled: !availablePizzas.some(
-      (pizza) => Number(pizza.size) === Number(item.value)
-    ),
-  }));
+  const availablePizzaSizes = getAvailablePizzaSizes(type, items);
+
   return (
     <div className={cn(className, 'flex flex-1')}>
       <PizzaImage imageUrl={imageUrl} size={size} />
