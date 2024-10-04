@@ -1,15 +1,12 @@
+'use client';
+
 import { cn } from '@/lib/utils';
 import React from 'react';
 import { Button } from '../ui';
 import { GroupVariants, PizzaImage, Title, IngredientItem } from '.';
 import { Ingredient, ProductItem } from '@prisma/client';
-import {
-  mapPizzaType,
-  PizzaSize,
-  PizzaType,
-  pizzaTypes,
-} from '@/constants/pizza';
-import { calcPizzaPrices, getPizzaDetails } from '@/lib';
+import { PizzaSize, PizzaType, pizzaTypes } from '@/constants/pizza';
+import { getPizzaDetails } from '@/lib';
 import { usePizzaOptions } from '@/hooks';
 
 interface Props {
