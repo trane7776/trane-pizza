@@ -1,3 +1,4 @@
+'use client';
 import React from 'react';
 
 import {
@@ -12,6 +13,8 @@ import {
 import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
 import { Button } from '../ui';
+import { CartDrawerItem } from './CartDrawerItem';
+import { getCartItemDetails } from '@/lib';
 
 interface Props {
   className?: string;
@@ -35,7 +38,100 @@ export const CartDrawer: React.FC<React.PropsWithChildren<Props>> = ({
           </SheetTitle>
         </SheetHeader>
 
-        {/* Items */}
+        <div className="-mx-6 mt-5 overflow-auto  flex-1">
+          <div className="mb-2">
+            <CartDrawerItem
+              id={1}
+              imageUrl="https://media.dodostatic.net/image/r:233x233/11EE7D61304FAF5A98A6958F2BB2D260.webp"
+              details={getCartItemDetails(1, 20, [
+                { name: 'моцарелла' },
+                { name: 'сыр' },
+              ])}
+              name="Пепперони фреш"
+              price={400}
+              quantity={1}
+            />
+          </div>
+          <div className="mb-2">
+            <CartDrawerItem
+              id={1}
+              imageUrl="https://media.dodostatic.net/image/r:233x233/11EE7D61304FAF5A98A6958F2BB2D260.webp"
+              details={getCartItemDetails(1, 20, [
+                { name: 'моцарелла' },
+                { name: 'сыр' },
+              ])}
+              name="Пепперони фреш"
+              price={400}
+              quantity={1}
+            />
+          </div>
+          <div className="mb-2">
+            <CartDrawerItem
+              id={1}
+              imageUrl="https://media.dodostatic.net/image/r:233x233/11EE7D61304FAF5A98A6958F2BB2D260.webp"
+              details={getCartItemDetails(1, 20, [
+                { name: 'моцарелла' },
+                { name: 'сыр' },
+              ])}
+              name="Пепперони фреш"
+              price={400}
+              quantity={1}
+            />
+          </div>
+          <div className="mb-2">
+            <CartDrawerItem
+              id={1}
+              imageUrl="https://media.dodostatic.net/image/r:233x233/11EE7D61304FAF5A98A6958F2BB2D260.webp"
+              details={getCartItemDetails(1, 20, [
+                { name: 'моцарелла' },
+                { name: 'сыр' },
+              ])}
+              name="Пепперони фреш"
+              price={400}
+              quantity={1}
+            />
+          </div>
+          <div className="mb-2">
+            <CartDrawerItem
+              id={1}
+              imageUrl="https://media.dodostatic.net/image/r:233x233/11EE7D61304FAF5A98A6958F2BB2D260.webp"
+              details={getCartItemDetails(1, 20, [
+                { name: 'моцарелла' },
+                { name: 'сыр' },
+              ])}
+              name="Пепперони фреш"
+              price={400}
+              quantity={1}
+            />
+          </div>
+          <div className="mb-2">
+            <CartDrawerItem
+              id={1}
+              imageUrl="https://media.dodostatic.net/image/r:233x233/11EE7D61304FAF5A98A6958F2BB2D260.webp"
+              details={getCartItemDetails(1, 20, [
+                { name: 'моцарелла' },
+                { name: 'сыр' },
+              ])}
+              name="Пепперони фреш"
+              price={400}
+              quantity={1}
+            />
+          </div>
+
+          <div className="mb-2">
+            <CartDrawerItem
+              id={1}
+              imageUrl="https://media.dodostatic.net/image/r:233x233/11EE7D61304FAF5A98A6958F2BB2D260.webp"
+              details={getCartItemDetails(1, 20, [
+                { name: 'моцарелла' },
+                { name: 'сыр' },
+              ])}
+              name="Пепперони фреш"
+              price={400}
+              quantity={1}
+            />
+          </div>
+        </div>
 
         <SheetFooter className="-mx-6 bg-white p-8">
           <div className="w-full">
