@@ -1,23 +1,13 @@
 import { getCartDetails } from '@/lib';
+import { CartStateItem } from '@/lib/getCartDetails';
 import { API } from '@/services/api-client';
 import { create } from 'zustand/react';
-
-export interface ICartItem {
-  id: number;
-  quantity: number;
-  name: string;
-  imageUrl: string;
-  price: number;
-  pizzaSize?: number | null;
-  type?: number | null;
-  ingredients: Array<{ name: string; price: number }>;
-}
 
 export interface CartState {
   loading: boolean;
   error: boolean;
   totalAmount: number;
-  items: ICartItem[];
+  items: CartStateItem[];
   /* Получение товаров из корзины */
   fetchCartItems: () => Promise<void>;
 
@@ -41,6 +31,7 @@ export const useCartStore = create<CartState>((set, get) => ({
     try {
       set({ loading: true, error: false });
       const data = await API.cart.fetchCart();
+
       set(getCartDetails(data));
     } catch (error) {
       console.error(error);
