@@ -40,7 +40,9 @@ export const useCartStore = create<CartState>((set, get) => ({
       set({ loading: false });
     }
   },
-  removeCartItem: async (id: number) => {},
+
   updateItemQuantity: async (id: number, quantity: number) => {},
+
+  removeCartItem: async (id: number) => {},
   addCartItem: async (values: unknown) => {},
 }));
