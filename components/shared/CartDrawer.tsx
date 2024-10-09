@@ -48,7 +48,7 @@ export const CartDrawer: React.FC<React.PropsWithChildren<Props>> = ({
       >
         <SheetHeader>
           <SheetTitle>
-            в корзине <span className="font-bold">3 товара</span>
+            в корзине <span className="font-bold">{items.length} товара</span>
           </SheetTitle>
         </SheetHeader>
 
