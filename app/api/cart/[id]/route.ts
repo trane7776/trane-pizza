@@ -52,3 +52,46 @@ export async function PATCH(
     );
   }
 }
+
+export async function DELETE(
+  req: NextRequest,
+  { params }: { params: { id: string } }
+) {
+  try {
+    const id = Number(params.id);
+    const token = req.cookies.get('cartToken')?.value;
+
+    if (!token) {
+      return NextResponse.json(
+        { message: '[CART_PATCH] No cart token found.' },
+        { status: 404 }
+      );
+    }
+
+    const cartItem = await prisma.cartItem.findFirst({
+      where: {
+        id: id,
+      },
+    });
+
+    if (!cartItem) {
+      return NextResponse.json({ error: 'Cart item not found' });
+    }
+
+    await prisma.cartItem.delete({
+      where: {
+        id: id,
+      },
+    });
+
+    const updatedUserCart = await updateCartTotalAmount(token);
+
+    return NextResponse.json(updatedUserCart);
+  } catch (error) {
+    console.log('[CART_DELETE] Something went wrong.', error);
+    return NextResponse.json(
+      { message: '[CART_DELETE] Delete Error.' },
+      { status: 500 }
+    );
+  }
+}
