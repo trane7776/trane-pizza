@@ -13,7 +13,7 @@ interface Props {
   loading?: boolean;
   searchInputPlaceholder?: string;
   onClickCheckbox?: (id: string) => void;
-  defaultValue?: string[];
+
   selectedIds?: Set<string>;
   className?: string;
   name?: string;
@@ -30,7 +30,6 @@ export const CheckboxFiltersGroup: FC<Props> = ({
   onClickCheckbox,
   selectedIds,
   name,
-  defaultValue,
 }) => {
   const [showAll, setShowAll] = useState(false);
   const [searchValue, setSearchValue] = useState('');

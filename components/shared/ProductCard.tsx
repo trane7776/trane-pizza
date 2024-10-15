@@ -3,7 +3,6 @@ import React from 'react';
 import { Title } from './Title';
 import { Button } from '../ui';
 import { Plus } from 'lucide-react';
-import { useRouter } from 'next/navigation';
 interface Props {
   id: number;
   name: string;

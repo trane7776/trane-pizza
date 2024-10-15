@@ -3,7 +3,7 @@ import { cn } from '@/lib/utils';
 import { CartButton, Container, SearchInput } from '.';
 import Image from 'next/image';
 import { Button } from '../ui';
-import { User, ShoppingCart, ArrowRight } from 'lucide-react';
+import { User } from 'lucide-react';
 import Link from 'next/link';
 interface HeaderProps {
   className?: string;

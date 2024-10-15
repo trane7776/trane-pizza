@@ -6,10 +6,11 @@ import { Title } from './Title';
 import { cn } from '@/lib/utils';
 import { ProductCard } from './ProductCard';
 import { useCategoryStore } from '@/store/category';
+import { ProductWithRelations } from '@/@types/prisma';
 
 interface Props {
   title: string;
-  items: any[];
+  items: ProductWithRelations[];
   categoryId: number;
   className?: string;
   listClassName?: string;

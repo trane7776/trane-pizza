@@ -3,7 +3,6 @@ import React from 'react';
 
 import {
   Sheet,
-  SheetClose,
   SheetContent,
   SheetHeader,
   SheetTitle,
@@ -18,15 +17,8 @@ import { getCartItemDetails } from '@/lib';
 import { useCartStore } from '@/store';
 import { useShallow } from 'zustand/react/shallow';
 import { PizzaSize, PizzaType } from '@/constants/pizza';
-import { updateItemQuantity } from '@/services/cart';
-interface Props {
-  className?: string;
-}
 
-export const CartDrawer: React.FC<React.PropsWithChildren<Props>> = ({
-  children,
-  className,
-}) => {
+export const CartDrawer: React.FC<React.PropsWithChildren> = ({ children }) => {
   const [
     totalAmount,
     fetchCartItems,
