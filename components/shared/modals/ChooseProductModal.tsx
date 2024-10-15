@@ -8,6 +8,7 @@ import { useRouter } from 'next/navigation';
 import { ChoosePizzaForm, ChooseProductForm } from '..';
 import { ProductWithRelations } from '@/@types/prisma';
 import { useCartStore } from '@/store';
+import toast from 'react-hot-toast';
 
 interface Props {
   product: ProductWithRelations;
@@ -26,11 +27,18 @@ export const ChooseProductModal: React.FC<Props> = ({ product, className }) => {
     });
   };
 
-  const onAddPizza = (productItemId: number, ingredients: number[]) => {
-    addCartItem({
-      productItemId,
-      ingredientsId: ingredients,
-    });
+  const onAddPizza = async (productItemId: number, ingredients: number[]) => {
+    try {
+      addCartItem({
+        productItemId,
+        ingredientsId: ingredients,
+      });
+
+      toast.success('Пицца добавлена в корзину');
+    } catch (error) {
+      console.error(error);
+      toast.error('Не удалось добавить пиццу в корзину');
+    }
   };
 
   return (
