@@ -5,21 +5,15 @@ import {
   TopBar,
   ProductsGroupList,
 } from '@/components/shared';
-import { prisma } from '@/prisma/prisma-client';
+import { findPizzas, GetSearchParams } from '@/lib/findPizzas';
 import { Suspense } from 'react';
 
-export default async function Home() {
-  const categories = await prisma.category.findMany({
-    include: {
-      products: {
-        include: {
-          ingredients: true,
-          items: true,
-        },
-      },
-    },
-  });
-
+export default async function Home({
+  searchParams,
+}: {
+  searchParams: GetSearchParams;
+}) {
+  const categories = await findPizzas(searchParams);
   return (
     <>
       <Container className="mt-10">

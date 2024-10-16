@@ -19,4 +19,5 @@ export { IngredientItem } from './IngredientItem';
 export { CartButton } from './CartButton';
 export { CartDrawer } from './CartDrawer';
 export { CartDrawerItem } from './CartDrawerItem';
+export { ProductForm } from './ProductForm';
 export * from './modals';

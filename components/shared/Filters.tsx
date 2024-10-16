@@ -38,8 +38,8 @@ export const Filters: React.FC<Props> = ({ className }) => {
         onClickCheckbox={filters.setPizzaTypes}
         selectedIds={filters.pizzaTypes}
         items={[
-          { text: 'тонкое', value: '1' },
-          { text: 'традиционное', value: '2' },
+          { text: 'традиционное', value: '1' },
+          { text: 'тонкое', value: '2' },
         ]}
       />
 
