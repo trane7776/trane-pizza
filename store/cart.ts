@@ -44,27 +44,51 @@ export const useCartStore = create<CartState>((set, get) => ({
 
   updateItemQuantity: async (id: number, quantity: number) => {
     try {
-      set({ loading: true, error: false });
+      set((state) => ({
+        loading: true,
+        error: false,
+        items: state.items.map((item) =>
+          item.id === id ? { ...item, disabled: true } : item
+        ),
+      }));
       const data = await API.cart.updateItemQuantity(id, quantity);
       set(getCartDetails(data));
     } catch (error) {
       console.error(error);
       set({ error: true });
     } finally {
-      set({ loading: false });
+      set((state) => ({
+        loading: false,
+        items: state.items.map((item) => ({
+          ...item,
+          disabled: false,
+        })),
+      }));
     }
   },
 
   removeCartItem: async (id: number) => {
     try {
-      set({ loading: true, error: false });
+      set((state) => ({
+        loading: true,
+        error: false,
+        items: state.items.map((item) =>
+          item.id === id ? { ...item, disabled: true } : item
+        ),
+      }));
       const data = await API.cart.removeCartItem(id);
       set(getCartDetails(data));
     } catch (error) {
       console.error(error);
       set({ error: true });
     } finally {
-      set({ loading: false });
+      set((state) => ({
+        loading: false,
+        items: state.items.map((item) => ({
+          ...item,
+          disabled: false,
+        })),
+      }));
     }
   },
   addCartItem: async (values: CreateCartItemValues) => {
