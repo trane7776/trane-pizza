@@ -1,4 +1,3 @@
-import { ingredients } from './../../../prisma/constants';
 import { prisma } from '@/prisma/prisma-client';
 import { NextRequest, NextResponse } from 'next/server';
 import crypto from 'crypto';
