@@ -15,33 +15,14 @@ import { ArrowLeft, ArrowRight } from 'lucide-react';
 import { Button } from '../ui';
 import { CartDrawerItem } from './CartDrawerItem';
 import { getCartItemDetails } from '@/lib';
-import { useCartStore } from '@/store';
-import { useShallow } from 'zustand/react/shallow';
 import { PizzaSize, PizzaType } from '@/constants/pizza';
 import { Title } from './Title';
 import { cn } from '@/lib/utils';
+import { useCart } from '@/hooks';
 
 export const CartDrawer: React.FC<React.PropsWithChildren> = ({ children }) => {
-  const [
-    totalAmount,
-    fetchCartItems,
-    updateItemQuantity,
-    removeCartItem,
-    items,
-  ] = useCartStore(
-    useShallow((state) => [
-      state.totalAmount,
-      state.fetchCartItems,
-      state.updateItemQuantity,
-      state.removeCartItem,
-      state.items,
-    ])
-  );
-
-  React.useEffect(() => {
-    fetchCartItems();
-  }, []);
-
+  const { totalAmount, updateItemQuantity, items, removeCartItem } = useCart();
+  const [redirecting, setRedirecting] = React.useState(false);
   const onClickCountButton = (
     id: number,
     quantity: number,
@@ -140,8 +121,10 @@ export const CartDrawer: React.FC<React.PropsWithChildren> = ({ children }) => {
                     </span>
                     <span className="font-bold text-lg">{totalAmount} ₽</span>
                   </div>
-                  <Link href="/cart">
+                  <Link href="/checkout">
                     <Button
+                      onClick={() => setRedirecting(true)}
+                      loading={redirecting}
                       type="submit"
                       className="w-full h-12 text-base font-bold"
                     >
