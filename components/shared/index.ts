@@ -25,4 +25,11 @@ export { CheckoutItemDetails } from './CheckoutItemDetails';
 export { CheckoutItem } from './CheckoutItem';
 export { CheckoutItemSkeleton } from './CheckoutItemSkeleton';
 export { CheckoutSidebar } from './CheckoutSidebar';
+
+export { RequiredSymbol } from './RequiredSymbol';
+
+export { ErrorText } from './ErrorText';
+
+export { ClearButton } from './ClearButton';
+export * from './form-components';
 export * from './modals';
