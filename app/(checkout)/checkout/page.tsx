@@ -1,5 +1,6 @@
 'use client';
-
+import { FormProvider, useForm, SubmitHandler } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
 import {
   CheckoutItem,
   CheckoutSidebar,
@@ -12,9 +13,34 @@ import { Input, Textarea } from '@/components/ui';
 import { PizzaSize, PizzaType } from '@/constants/pizza';
 import { useCart } from '@/hooks';
 import { getCartItemDetails } from '@/lib';
+import {
+  CheckoutAddress,
+  CheckoutCart,
+  CheckoutPersonal,
+} from '@/components/shared/checkout-components';
+import {
+  checkoutFormSchema,
+  CheckoutFormValues,
+} from '@/components/shared/checkout-components/checkout-form-schema';
 
 export default function CheckoutPage() {
   const { totalAmount, updateItemQuantity, items, removeCartItem } = useCart();
+
+  const form = useForm<CheckoutFormValues>({
+    resolver: zodResolver(checkoutFormSchema),
+    defaultValues: {
+      email: '',
+      firstName: '',
+      lastName: '',
+      address: '',
+      phone: '',
+      comment: '',
+    },
+  });
+
+  const onSubmit: SubmitHandler<CheckoutFormValues> = (data) => {
+    console.log(data);
+  };
 
   const onClickCountButton = (
     id: number,
@@ -31,76 +57,28 @@ export default function CheckoutPage() {
         text="оформление заказа"
         className="font-extrabold mb-8 text-[36px]"
       />
-      <div className="flex gap-10">
-        {/* Левая часть */}
-        <div className="flex flex-col gap-10 flex-1 mb-20">
-          <WhiteBlock title="1. корзина">
-            <div className="flex flex-col gap-5">
-              {items.map((item) => (
-                <CheckoutItem
-                  key={item.id}
-                  id={item.id}
-                  imageUrl={item.imageUrl}
-                  details={
-                    item.pizzaSize && item.pizzaType
-                      ? getCartItemDetails(
-                          item.pizzaType as PizzaType,
-                          item.pizzaSize as PizzaSize,
-                          item.ingredients
-                        )
-                      : ''
-                  }
-                  name={item.name}
-                  price={item.price}
-                  quantity={item.quantity}
-                  disabled={item.disabled}
-                  onClickCountButton={(type) =>
-                    onClickCountButton(item.id, item.quantity, type)
-                  }
-                  onClickRemove={() => removeCartItem(item.id)}
-                />
-              ))}
+      <FormProvider {...form}>
+        <form onSubmit={form.handleSubmit(onSubmit)}>
+          <div className="flex gap-10">
+            {/* Левая часть */}
+            <div className="flex flex-col gap-10 flex-1 mb-20">
+              <CheckoutCart
+                items={items}
+                onClickCountButton={onClickCountButton}
+                removeCartItem={removeCartItem}
+              />
+              <CheckoutPersonal />
+              <CheckoutAddress />
             </div>
-          </WhiteBlock>
 
-          <WhiteBlock title="2. персональные данные">
-            <div className="grid grid-cols-2 gap-5">
-              <Input name="firstName" className="text-base" placeholder="имя" />
-              <Input
-                name="lastName"
-                className="text-base"
-                placeholder="фамилия"
-              />
-              <Input name="email" className="text-base" placeholder="e-mail" />
-              <FormInput
-                name="phone"
-                className="text-base"
-                placeholder="номер телефона"
-              />
+            {/* Правая часть */}
+
+            <div className="w-[450px]">
+              <CheckoutSidebar totalAmount={totalAmount} />
             </div>
-          </WhiteBlock>
-          <WhiteBlock title="3. адрес доставки">
-            <div className="flex flex-col gap-5">
-              <Input
-                name="address"
-                className="text-base"
-                placeholder="введите адресс..."
-              />
-              <Textarea
-                className="text-base"
-                rows={5}
-                placeholder="комментарий к заказу"
-              />
-            </div>
-          </WhiteBlock>
-        </div>
-
-        {/* Правая часть */}
-
-        <div className="w-[450px]">
-          <CheckoutSidebar totalAmount={totalAmount} />
-        </div>
-      </div>
+          </div>
+        </form>
+      </FormProvider>
     </Container>
   );
 }
