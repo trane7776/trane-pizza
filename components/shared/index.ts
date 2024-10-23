@@ -31,5 +31,6 @@ export { RequiredSymbol } from './RequiredSymbol';
 export { ErrorText } from './ErrorText';
 
 export { ClearButton } from './ClearButton';
+export { AddressInput } from './AddressInput';
 export * from './form-components';
 export * from './modals';

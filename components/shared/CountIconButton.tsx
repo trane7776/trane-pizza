@@ -27,6 +27,7 @@ export const CountIconButton: React.FC<IconButtonProps> = ({
           ? 'w-[30px] h-[30px] rounded-[10px]'
           : 'w-[38px] h-[38px] rounded-md'
       )}
+      type="button"
     >
       {type === 'plus' ? (
         <Plus className={size === 'sm' ? 'h-4' : 'h-5'} />

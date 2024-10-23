@@ -1,18 +1,8 @@
 'use client';
 import { FormProvider, useForm, SubmitHandler } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import {
-  CheckoutItem,
-  CheckoutSidebar,
-  Container,
-  Title,
-  WhiteBlock,
-} from '@/components/shared';
-import { FormInput } from '@/components/shared/form-components';
-import { Input, Textarea } from '@/components/ui';
-import { PizzaSize, PizzaType } from '@/constants/pizza';
+import { CheckoutSidebar, Container, Title } from '@/components/shared';
 import { useCart } from '@/hooks';
-import { getCartItemDetails } from '@/lib';
 import {
   CheckoutAddress,
   CheckoutCart,
@@ -24,7 +14,8 @@ import {
 } from '@/components/shared/checkout-components/checkout-form-schema';
 
 export default function CheckoutPage() {
-  const { totalAmount, updateItemQuantity, items, removeCartItem } = useCart();
+  const { totalAmount, updateItemQuantity, items, removeCartItem, loading } =
+    useCart();
 
   const form = useForm<CheckoutFormValues>({
     resolver: zodResolver(checkoutFormSchema),
@@ -66,15 +57,20 @@ export default function CheckoutPage() {
                 items={items}
                 onClickCountButton={onClickCountButton}
                 removeCartItem={removeCartItem}
+                loading={loading}
               />
-              <CheckoutPersonal />
-              <CheckoutAddress />
+              <CheckoutPersonal
+                className={loading ? 'opacity-40 pointer-events-none' : ''}
+              />
+              <CheckoutAddress
+                className={loading ? 'opacity-40 pointer-events-none' : ''}
+              />
             </div>
 
             {/* Правая часть */}
 
             <div className="w-[450px]">
-              <CheckoutSidebar totalAmount={totalAmount} />
+              <CheckoutSidebar totalAmount={totalAmount} loading={loading} />
             </div>
           </div>
         </form>

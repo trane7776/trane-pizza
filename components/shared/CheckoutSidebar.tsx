@@ -1,16 +1,17 @@
 import React from 'react';
 import { CheckoutItemDetails, WhiteBlock } from '.';
 import { ArrowRight, Package, Percent, Truck } from 'lucide-react';
-import { Button } from '../ui';
+import { Button, Skeleton } from '../ui';
 
 interface Props {
   totalAmount: number;
+  loading?: boolean;
 }
 
 const VAT = 5;
 const DELIVERY_PRICE = 150;
 
-export const CheckoutSidebar: React.FC<Props> = ({ totalAmount }) => {
+export const CheckoutSidebar: React.FC<Props> = ({ totalAmount, loading }) => {
   const vatPrice = (totalAmount * VAT) / 100;
 
   const totalPrice = totalAmount + vatPrice + DELIVERY_PRICE;
@@ -19,7 +20,11 @@ export const CheckoutSidebar: React.FC<Props> = ({ totalAmount }) => {
     <WhiteBlock className="p-6 sticky top-4">
       <div className="flex flex-col gap-1">
         <span className="text-xl">итого:</span>
-        <span className="text-4xl font-extrabold">{totalPrice} ₽</span>
+        {loading ? (
+          <Skeleton className="h-11 w-1/2" />
+        ) : (
+          <span className="h-11 text-4xl font-extrabold">{totalPrice} ₽</span>
+        )}
       </div>
       <CheckoutItemDetails
         title={
@@ -28,7 +33,7 @@ export const CheckoutSidebar: React.FC<Props> = ({ totalAmount }) => {
             стоимость продуктов:
           </div>
         }
-        value={`${totalAmount} ₽`}
+        value={loading ? <Skeleton className="h-7 w-10" /> : `${totalAmount} ₽`}
       />
       <CheckoutItemDetails
         title={
@@ -37,7 +42,7 @@ export const CheckoutSidebar: React.FC<Props> = ({ totalAmount }) => {
             сборы:
           </div>
         }
-        value={`${vatPrice} ₽`}
+        value={loading ? <Skeleton className="h-7 w-10" /> : `${vatPrice} ₽`}
       />
       <CheckoutItemDetails
         title={
@@ -46,7 +51,9 @@ export const CheckoutSidebar: React.FC<Props> = ({ totalAmount }) => {
             доставка:
           </div>
         }
-        value={`${DELIVERY_PRICE} ₽`}
+        value={
+          loading ? <Skeleton className="h-7 w-10" /> : `${DELIVERY_PRICE} ₽`
+        }
       />
 
       <Button
