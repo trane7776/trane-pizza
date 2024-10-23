@@ -32,5 +32,6 @@ export { ErrorText } from './ErrorText';
 
 export { ClearButton } from './ClearButton';
 export { AddressInput } from './AddressInput';
+export * from './email-templates';
 export * from './form-components';
 export * from './modals';
