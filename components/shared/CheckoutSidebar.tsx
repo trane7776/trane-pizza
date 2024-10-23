@@ -6,12 +6,17 @@ import { Button, Skeleton } from '../ui';
 interface Props {
   totalAmount: number;
   loading?: boolean;
+  submitting?: boolean;
 }
 
 const VAT = 5;
 const DELIVERY_PRICE = 150;
 
-export const CheckoutSidebar: React.FC<Props> = ({ totalAmount, loading }) => {
+export const CheckoutSidebar: React.FC<Props> = ({
+  totalAmount,
+  loading,
+  submitting,
+}) => {
   const vatPrice = (totalAmount * VAT) / 100;
 
   const totalPrice = totalAmount + vatPrice + DELIVERY_PRICE;
@@ -60,6 +65,7 @@ export const CheckoutSidebar: React.FC<Props> = ({ totalAmount, loading }) => {
         type="submit"
         className="w-full h-14
     rounded-2xl mt-6 text-base font-bold"
+        loading={submitting}
       >
         перейти к оплате
         <ArrowRight className="ml-2 w-5" />
