@@ -1,6 +1,6 @@
+'use client';
 import React from 'react';
-import { FormInput, WhiteBlock } from '..';
-import { Input } from '@/components/ui';
+import { FormInput, FormPhone, WhiteBlock } from '..';
 
 interface Props {
   className?: string;
@@ -17,10 +17,10 @@ export const CheckoutPersonal: React.FC<Props> = ({ className }) => {
           placeholder="фамилия"
         />
         <FormInput name="email" className="text-base" placeholder="e-mail" />
-        <FormInput
+        <FormPhone
           name="phone"
           className="text-base"
-          placeholder="номер телефона"
+          placeholder="+7 (___) ___-__-__"
         />
       </div>
     </WhiteBlock>
