@@ -53,7 +53,6 @@ export default function CheckoutPage() {
     } finally {
       setSubmitting(false);
     }
-    createOrder(data);
   };
 
   const onClickCountButton = (

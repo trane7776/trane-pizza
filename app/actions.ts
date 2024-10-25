@@ -94,7 +94,6 @@ export async function createOrder(data: CheckoutFormValues) {
 
     const paymentUrl = paymentData.confirmation.confirmation_url;
 
-    // TODO: Сделать оплату кек вейт
     await sendEmail(
       data.email,
       `Trane Pizza. Оплатите заказ #${order.id}`,
