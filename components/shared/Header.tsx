@@ -12,6 +12,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import toast from 'react-hot-toast';
+import { useRouter } from 'next/navigation';
 
 interface HeaderProps {
   hasSearch?: boolean;
@@ -24,18 +25,26 @@ const Header: FC<HeaderProps> = ({
   hasSearch = true,
   className,
 }) => {
+  const router = useRouter();
+
   const [openAuthModal, setOpenAuthModal] = React.useState(false);
 
   const searchParams = useSearchParams();
   React.useEffect(() => {
+    let toastMessage = '';
+
     if (searchParams.has('paid')) {
-      setTimeout(
-        () =>
-          toast.success(
-            'заказ успешно оплачен💛. мы начали готовить вашу пиццу, информация отправлена по почте.'
-          ),
-        500
-      );
+      toastMessage =
+        'заказ успешно оплачен💛. мы начали готовить вашу пиццу, информация отправлена по почте.';
+    }
+    if (searchParams.has('verified')) {
+      toastMessage =
+        'почта успешно подтверждена. вы можете спокойно ❤️ войти в аккаунт';
+    }
+
+    if (toastMessage) {
+      router.replace('/');
+      setTimeout(() => toast.success(toastMessage, { duration: 3000 }), 500);
     }
   }, []);
   return (

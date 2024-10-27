@@ -33,6 +33,9 @@ export { ErrorText } from './ErrorText';
 export { ClearButton } from './ClearButton';
 export { AddressInput } from './AddressInput';
 export { ProfileButton } from './ProfileButton';
+export { InfoBlock } from './InfoBlock';
+
+export { ProfileForm } from './ProfileForm';
 export * from './email-templates';
 export * from './form-components';
 export * from './modals';

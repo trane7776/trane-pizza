@@ -2,6 +2,7 @@ import { Button, Dialog, DialogContent } from '@/components/ui';
 import { signIn } from 'next-auth/react';
 import React from 'react';
 import { LoginForm } from './forms/LoginForm';
+import { RegisterForm } from './forms/RegisterForm';
 
 interface Props {
   open: boolean;
@@ -24,7 +25,7 @@ export const AuthModal: React.FC<Props> = ({ open, onClose }) => {
         {type === 'login' ? (
           <LoginForm onClose={handleClose} />
         ) : (
-          <h1>привет</h1>
+          <RegisterForm onClose={handleClose} />
         )}
         <hr />
         <div className="flex gap-2">
