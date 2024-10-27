@@ -37,5 +37,6 @@ export async function GET(req: NextRequest) {
     return NextResponse.redirect(new URL('/?verified', req.url));
   } catch (error) {
     console.error('Error [verify get]', error);
+    return NextResponse.json({ error: 'error [verify get]' }, { status: 500 });
   }
 }

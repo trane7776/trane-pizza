@@ -12,7 +12,6 @@ interface Props {
     type: 'plus' | 'minus'
   ) => void;
   removeCartItem: (id: number) => void;
-  loading?: boolean;
   className?: string;
 }
 
@@ -20,7 +19,6 @@ export const CheckoutCart: React.FC<Props> = ({
   items,
   onClickCountButton,
   removeCartItem,
-  loading,
   className,
 }) => {
   return (

@@ -14,7 +14,7 @@ import {
 } from '@/components/shared/checkout-components/checkout-form-schema';
 import { createOrder } from '@/app/actions';
 import toast from 'react-hot-toast';
-import React from 'react';
+import React, { Suspense } from 'react';
 import { useSession } from 'next-auth/react';
 import { API } from '@/services/api-client';
 
@@ -97,14 +97,15 @@ export default function CheckoutPage() {
                 items={items}
                 onClickCountButton={onClickCountButton}
                 removeCartItem={removeCartItem}
-                loading={loading}
               />
               <CheckoutPersonal
                 className={loading ? 'opacity-40 pointer-events-none' : ''}
               />
-              <CheckoutAddress
-                className={loading ? 'opacity-40 pointer-events-none' : ''}
-              />
+              <Suspense>
+                <CheckoutAddress
+                  className={loading ? 'opacity-40 pointer-events-none' : ''}
+                />
+              </Suspense>
             </div>
 
             {/* Правая часть */}
